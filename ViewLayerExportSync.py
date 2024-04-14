@@ -117,11 +117,15 @@ def setRenderPath(scene):
         scene.render.filepath = newPath
 
 # Therefore this needs to be checked in another timed callback function
-# that is run every 2 seconds       
+# that is run every 2 seconds
+# This function will also set all view layers to not be used for rendering
+# apart from the one that is currently selected     
 def updatePaths():
     newPath = findPathForViewLayer(bpy.context.view_layer.name)
     if newPath:
         bpy.context.scene.render.filepath = newPath
+    for view_layer in bpy.context.scene.view_layers:
+        view_layer.use = True if view_layer.name == bpy.context.view_layer.name else False
     return 2.0
 
 # Helper function to find the correct view layer to path mapping    
