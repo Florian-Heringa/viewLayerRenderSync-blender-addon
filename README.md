@@ -34,3 +34,4 @@ Also, I wanted to have the render folder path only be changed when a render is a
 - Implement automatic synchronisation between view layers and path mappings.
     - Keep added, removed and renamed view layers in sync with the correct path.
 - Move the menu from the N-sidebar to the render settings menu
+- Add versioning control to automatically build path based on selected version (ex. V001)
