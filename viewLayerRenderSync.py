@@ -1,9 +1,10 @@
 bl_info = {
-    "name" : "View Layer Export Sync",
+    "name" : "View Layer Render Sync",
     "blender": (3, 2, 2),
     "version": (1, 0, 0),
     "category": "System",
-    "warning": "Only tested with a single scene",
+    "description": "Addon to keep the selected view layer in sync with a chosen render path. Currently the selected view layer will be selected such that it is the only layer to contribute to the render.",
+    "warning": "Only tested with a single scene, in development so issues may pop up. Please report any findings on github.",
     "internal_name": "vles"
 }
 
