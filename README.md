@@ -3,9 +3,9 @@
 ## Motivation
 
 A useful way of utilising view layers is to make subsets of renders easy to manage.
-For example when doing compositing it can be useful to only select and render specific objects.
-Currently Blender does not directly support multiple render output paths, so I have created an addon
-that makes this slightly easier to work with.
+For example when doing compositing it can be useful to only select and render specific objects as can easily be defined in a view layer.
+Currently Blender does not directly support multiple render output paths, so I have created an addon that makes this slightly easier to work with.
+For now, there is still a bit more manual config required than I would like, but just having a single point where these paths can be set is already a big improvement.
 
 ## Description
 
@@ -13,7 +13,7 @@ By selecting a view layer the linked path will automatically be loaded into the 
 
 ![](images/img0.png)
 
-If no path is explicitly defined, a defulat can be set in the Addon Preferences
+If no path is explicitly defined, a default can be set in the Addon Preferences
 
 ![](images/addonPrefs.png)
 
