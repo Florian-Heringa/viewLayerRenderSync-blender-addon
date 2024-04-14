@@ -117,7 +117,7 @@ def setRenderPath(scene):
         scene.render.filepath = newPath
 
 # Therefore this needs to be checked in another timed callback function
-# that is run every 2 seconds
+# that is run every second
 # This function will also set all view layers to not be used for rendering
 # apart from the one that is currently selected     
 def updatePaths():
@@ -126,7 +126,7 @@ def updatePaths():
         bpy.context.scene.render.filepath = newPath
     for view_layer in bpy.context.scene.view_layers:
         view_layer.use = True if view_layer.name == bpy.context.view_layer.name else False
-    return 2.0
+    return 1.0
 
 # Helper function to find the correct view layer to path mapping    
 def findPathForViewLayer(view_layer_name):
@@ -134,6 +134,12 @@ def findPathForViewLayer(view_layer_name):
     for item in mapping:
         if item.viewLayerName == view_layer_name:
             return item.path
+         
+# Another workaround to make sure the timer callback is properly registered on reopen
+@bpy.app.handlers.persistent
+def startUpdateTimer(scene):
+    if not bpy.app.timers.is_registered(updatePaths):
+        bpy.app.timers.register(updatePaths)
    
 class VLES_PT_path_menu(bpy.types.Panel):
     bl_label = "ViewLayerSync"
@@ -185,7 +191,10 @@ def register():
         description="A collection of combinations of viewlayers with paths",
     )
     
-    bpy.app.timers.register(updatePaths)
+    bpy.app.handlers.load_post.append(startUpdateTimer)
+    
+    if not bpy.app.timers.is_registered(updatePaths):
+        bpy.app.timers.register(updatePaths)
     
 def unregister():
     
@@ -194,7 +203,8 @@ def unregister():
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
 
-    bpy.app.timers.unregister(updatePaths)
+    if bpy.app.timers.is_registered(updatePaths):
+        bpy.app.timers.unregister(updatePaths)
 
     
 if __name__ == "__main__":
